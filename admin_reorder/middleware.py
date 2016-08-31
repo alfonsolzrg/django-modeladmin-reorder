@@ -134,6 +134,9 @@ class ModelAdminReorder(object):
         except KeyError:
             # there is no app_list! nothing to reorder
             return response
+        except AttributeError:
+            # Something weird is going on with the Cache Middleware. Bail out!
+            return response
 
         self.init_config(request, app_list)
         ordered_app_list = self.get_app_list()
